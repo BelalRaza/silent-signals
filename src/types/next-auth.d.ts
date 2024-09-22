@@ -1,5 +1,5 @@
 import "next-auth"
-import nextAuth from "next-auth";
+// import nextAuth from "next-auth";
 
 declare module 'next-auth'{
     interface User{

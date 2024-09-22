@@ -36,7 +36,7 @@ function UserDashboard() {
   const { register, watch, setValue } = form;  
   const acceptMessages = watch('acceptMessages');
 
-  const fetchAcceptMessages = useCallback(async (refresh:boolean = false) => {
+  const fetchAcceptMessages = useCallback(async () => {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>('/api/accept-messages');
@@ -184,7 +184,7 @@ setMessages(response.data.messages || []);
       </Button>
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
-          messages.map((message, index) => (
+          messages.map((message) => (
             <MessageCard
               key={message._id as string}
               message={message} 

@@ -57,7 +57,7 @@ export async function POST(request: Request) {
 }
 
 
-export async function GET(request: Request) {
+export async function GET() {
   
   await dbConnect();
 
@@ -65,7 +65,6 @@ export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
-  
   if (!session || !user) {
     return Response.json(
       { success: false, message: 'Not authenticated' },
