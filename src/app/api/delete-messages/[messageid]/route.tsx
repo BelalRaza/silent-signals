@@ -12,9 +12,11 @@ export async function DELETE(
   { params }: { params: { messageid: string } }
 ) {
   const messageId = params.messageid;
+  console.log(messageId)
   await dbConnect();
   const session = await getServerSession(authOptions);
   const _user: User = session?.user;
+  console.log(session,_user)
   if (!session || !_user) {
     return Response.json(
       { success: false, message: 'Not authenticated' },
@@ -27,6 +29,7 @@ export async function DELETE(
       { _id: _user._id },
       { $pull: { messages: { _id: messageId } } }
     );
+    console.log(updateResult)
 
     if (updateResult.modifiedCount === 0) {
       return Response.json(

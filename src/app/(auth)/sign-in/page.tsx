@@ -21,6 +21,7 @@ import { signInSchema } from '@/schemas/signInSchema';
 export default function SignInForm() {
   const router = useRouter();
 
+
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -54,7 +55,7 @@ export default function SignInForm() {
     } 
 
     if (result?.url) {
-      router.replace('/dashboard');
+      router.push('/dashboard');
     }
   };
 

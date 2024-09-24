@@ -2,26 +2,24 @@
 
 // import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
-// import dayjs from '  
+
 import { X } from 'lucide-react';
 import { Message } from '@/model/User';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
-
-import {   AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger, } from '../components/ui/alert-dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Button } from './ui/button';
-import { useToast } from '../hooks/use-toast'
-
+import { useToast } from '@/hooks/use-toast';
 import { ApiResponse } from '@/types/ApiResponse';
-// import { string } from 'zod';
 
 type MessageCardProps = {
   message: Message;
@@ -34,15 +32,18 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   const handleDeleteConfirm = async () => {
     try {
       const response = await axios.delete<ApiResponse>(
-        `/api/delete-message/${message._id}`
+        `/api/delete-messages/${message._id}`
+
       );
+      console.log(response)
       toast({
         title: response.data.message,
       });
-      onMessageDelete(message._id as string);
+      onMessageDelete(message._id as string );
 
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
+      console.log(axiosError)
       toast({
         title: 'Error',
         description:
@@ -81,9 +82,6 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-        </div>
-        <div className="text-sm">
-          {/* {dayjs(message.createdAt).format('MMM D, YYYY h:mm A')} */}
         </div>
       </CardHeader>
       <CardContent></CardContent>

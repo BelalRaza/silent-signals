@@ -30,6 +30,7 @@
 //   );
 // }
 
+
 import Navbar from "@/components/navbar";
 
 interface RootLayoutProps {

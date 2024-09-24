@@ -16,7 +16,7 @@ import axios, { AxiosError } from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import {verficationSchema} from '@/schemas/verifySchema';
+import { verficationSchema } from '@/schemas/verificationSchema';
 
 export default function VerifyAccount() {
   const router = useRouter();
@@ -38,7 +38,7 @@ export default function VerifyAccount() {
         description: response.data.message,
       });
 
-      router.replace('/sign-in');
+      router.push('/sign-in');
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
@@ -81,3 +81,4 @@ export default function VerifyAccount() {
     </div>
   );
 }
+

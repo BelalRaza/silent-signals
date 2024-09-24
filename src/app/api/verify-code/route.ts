@@ -17,6 +17,10 @@ export async function POST(request: Request) {
       );
     }
 
+
+
+
+
     // Checking  if the code is correct and not expired
     const isCodeValid = user.verifyCode === code;
     const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date();
@@ -55,3 +59,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

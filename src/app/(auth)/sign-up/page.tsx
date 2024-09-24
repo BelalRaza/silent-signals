@@ -1,3 +1,7 @@
+
+
+
+
 'use client';
 
 import { ApiResponse } from '@/types/ApiResponse';
@@ -5,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDebounceCallback } from 'usehooks-ts';
+// import { useDebounceCallback } from 'usehooks-ts';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -28,7 +32,7 @@ export default function SignUpForm() {
   const [usernameMessage, setUsernameMessage] = useState('');
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const debounced = useDebounceCallback(setUsername, 300);
+  // const debounced = useDebounceCallback(setUsername, 300);
 
   const router = useRouter();
   const { toast } = useToast();
@@ -46,19 +50,17 @@ export default function SignUpForm() {
     const checkUsernameUnique = async () => {
       if (username) {
         setIsCheckingUsername(true);
-        setUsernameMessage('');
+        setUsernameMessage(''); // Reset message
         try {
           const response = await axios.get<ApiResponse>(
             `/api/check-username-unique?username=${username}`
           );
-          const message = response.data.message;
-          setUsernameMessage(message);
+          setUsernameMessage(response.data.message);
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
           setUsernameMessage(
             axiosError.response?.data.message ?? 'Error checking username'
           );
-          console.error('Error checking username:', axiosError);
         } finally {
           setIsCheckingUsername(false);
         }
@@ -77,7 +79,7 @@ export default function SignUpForm() {
         description: response.data.message,
       });
 
-      router.replace(`/verify/${username}`);
+      router.push(`/verify/${username}`);
 
       setIsSubmitting(false);
     } catch (error) {
@@ -85,9 +87,10 @@ export default function SignUpForm() {
 
       const axiosError = error as AxiosError<ApiResponse>;
 
-      const errorMessage =
-        axiosError.response?.data.message ??
-        'There was a problem with your sign-up. Please try again.';
+      // Default error message
+      const errorMessage = axiosError.response?.data.message;
+      // ('There was a problem with your sign-up. Please try again.');
+
 
       toast({
         title: 'Sign Up Failed',
@@ -103,12 +106,10 @@ export default function SignUpForm() {
     <div className="flex justify-center items-center min-h-screen bg-gray-800">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 text-gray-800">
-            Join Silent Signal
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 text-black">
+            Join Silent Signal 
           </h1>
-          <p className="mb-4 text-gray-600">
-            Sign up to start your anonymous adventure
-          </p>
+          <p className="mb-4 text-black">Sign up to start your anonymous adventure</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -117,14 +118,14 @@ export default function SignUpForm() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700">Username</FormLabel>
+                  <FormLabel className='text-black'>Username</FormLabel>
                   <Input
+                  className='text-black'
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
-                      debounced(e.target.value);
+                      setUsername(e.target.value);
                     }}
-                    className="text-black"
                   />
                   {isCheckingUsername && <Loader2 className="animate-spin" />}
                   {!isCheckingUsername && usernameMessage && (
@@ -147,36 +148,26 @@ export default function SignUpForm() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700">Email</FormLabel>
-                  <Input
-                    {...field}
-                    className="border border-gray-300 px-4 py-2 rounded-md focus:ring focus:ring-blue-500 focus:outline-none w-full text-black"
-                    name="email"
-                  />
-                  <p className="text-muted text-gray-400 text-sm">
-                    We will send you a verification code
-                  </p>
+                  <FormLabel className='text-black'>Email</FormLabel>
+                  <Input className='text-black' {...field} name="email" />
+                  <p className='text-muted text-gray-400 text-sm'>We will send you a verification code</p>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               name="password"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700">Password</FormLabel>
-                  <Input
-                    type="password"
-                    {...field}
-                    className="border border-gray-300 px-4 py-2 rounded-md focus:ring focus:ring-blue-500 focus:outline-none w-full text-black"
-                    name="password"
-                  />
+                  <FormLabel className='text-black'>Password</FormLabel>
+                  <Input className="text-black"type="password" {...field} name="password" />
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <Button type="submit" className='w-full' disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -188,7 +179,7 @@ export default function SignUpForm() {
             </Button>
           </form>
         </Form>
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 text-black">
           <p>
             Already a member?{' '}
             <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">

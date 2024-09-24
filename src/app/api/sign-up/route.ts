@@ -26,7 +26,7 @@ export async function POST(request:Request) {
             if(existingUserByEmail){
                 if(existingUserByEmail.isVerified){
                     return Response.json({
-                        sucess:false,
+                        success:false,
                         message:"User already exists with this email"
         
                     },{status:400})
@@ -68,19 +68,26 @@ export async function POST(request:Request) {
 
 
 
-        const emailRsponse= await sendVerificationEmail(
-            email,username,verifyCode
-        )
-        if(!emailRsponse.success){
-            return Response.json({
-                sucess:false,
-                message:emailRsponse.message
+        // const emailRsponse= await sendVerificationEmail(
+        //     email,username,verifyCode
+        // )
+        // if(!emailRsponse.success){
+        //     return Response.json({
+        //         success:false,
+        //         message:emailRsponse.message
 
-            },{status:500})
+        //     },{status:500})
+        // }
+        const emailResponse = await sendVerificationEmail(email, username, verifyCode);
+        if (!emailResponse.success) {
+          return Response.json({
+            success: false,
+            message: emailResponse.message
+          }, { status: 500 });
         }
         return Response.json(
             {
-                sucess:true,
+                success:true,
                 message:"User registered successfully. Please verify your email"
             },{
                 status:200
