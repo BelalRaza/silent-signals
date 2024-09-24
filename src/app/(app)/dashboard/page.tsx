@@ -212,7 +212,7 @@
 
 // export default UserDashboard;
 
-'use client';
+'use client'
 
 import { MessageCard } from '@/components/MessageCard';
 import { Button } from '@/components/ui/button';
@@ -223,7 +223,7 @@ import { Message } from '@/model/User';
 import { ApiResponse } from '@/types/ApiResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
-import { Loader2, RefreshCcw } from 'lucide-react';
+import { CloudFog, Loader2, RefreshCcw } from 'lucide-react';
 import { User } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -249,7 +249,6 @@ function UserDashboard() {
 
   const { register, watch, setValue } = form;
   const acceptMessages = watch('acceptMessages');
-
   const fetchAcceptMessages = useCallback(async () => {
     setIsSwitchLoading(true);
     try {
@@ -299,42 +298,57 @@ function UserDashboard() {
   );
 
   // Fetch initial state from the server
+  // useEffect(() => {
+  //   if (!session || !session.user) return;
+
+  //   fetchMessages();
+
+  //   fetchAcceptMessages();
+  // }, [session, setValue, toast, fetchAcceptMessages, fetchMessages]);
+
   useEffect(() => {
     if (!session || !session.user) return;
-
     fetchMessages();
-
     fetchAcceptMessages();
   }, [session, setValue, toast, fetchAcceptMessages, fetchMessages]);
 
+
   // Handle switch change
   const handleSwitchChange = async () => {
-    try {
-      const response = await axios.post<ApiResponse>('/api/accept-messages', {
-        acceptMessages: !acceptMessages,
-      });
-      setValue('acceptMessages', !acceptMessages);
-      toast({
-        title: response.data.message,
-        variant: 'default',
-      });
-    } catch (error) {
-      const axiosError = error as AxiosError<ApiResponse>;
-      toast({
-        title: 'Error',
-        description:
-          axiosError.response?.data.message ??
-          'Failed to update message settings',
-        variant: 'destructive',
-      });
-    }
-  };
+  const updatedValue = !acceptMessages;
+  setValue('acceptMessages', updatedValue); // Optimistically update
+
+  try {
+    const response = await axios.post<ApiResponse>('/api/accept-messages', {
+      acceptMessages: updatedValue,
+    });
+
+    toast({
+      title: response.data.message,
+      variant: 'default',
+    });
+  } catch (error) {
+    // Revert back to the original state if the API fails
+    setValue('acceptMessages', !updatedValue);
+    const axiosError = error as AxiosError<ApiResponse>;
+    toast({
+      title: 'Error',
+      description:
+        axiosError.response?.data.message ??
+        'Failed to update message settings',
+      variant: 'destructive',
+    });
+  }
+};
+
 
   if (!session || !session.user) {
+    console.log("user is not find");
     return <div></div>;
   }
 
   const { username } = session.user as User;
+  console.log(username, " and this is user -> ")
 
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
@@ -365,12 +379,12 @@ function UserDashboard() {
       </div>
 
       <div className="mb-4">
-        <Switch
-          {...register('acceptMessages')}
-          checked={acceptMessages}
-          onCheckedChange={handleSwitchChange}
-          disabled={isSwitchLoading}
-        />
+      <Switch
+        {...register('acceptMessages')}
+        checked={acceptMessages}
+        onCheckedChange={handleSwitchChange}
+        disabled={isSwitchLoading}
+      />
         <span className="ml-2">
           Accept Messages: {acceptMessages ? 'On' : 'Off'}
         </span>

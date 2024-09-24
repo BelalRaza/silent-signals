@@ -49,21 +49,20 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks:{
     async session({ session,token }) {
+      // console.log("this is token in session function -> ", token)
             if(token){
                 session.user._id = token._id
                 session.user.isVerified=token.isVerfied
                 session.user.isAcceptingMessages=token.isAcceptingMessages
                 session.user.username = token.username
-            
             }
-
-
         return session
       },
       async jwt({ token,user}) {
+        // console.log("this is in jwt -> ", user);
         if(user){
             token._id = user._id?.toString();
-            token.isVerified=user.isVerfied;
+            token.isVerified=user.isVerified;
             token.isAcceptingMessages=user.isAcceptingMessages;
             token.username = user.username
         }
@@ -78,4 +77,3 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET, 
 };
-

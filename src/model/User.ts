@@ -39,7 +39,6 @@ const UserSchema:Schema<User>= new Schema({
         trim:true, 
         unique:true
     },
-
     email:{
         type:String,
         required:[true,"Username is required"],
@@ -60,11 +59,6 @@ const UserSchema:Schema<User>= new Schema({
         required:[true,"Verify Code  Expiry is required"],
         default:null,
     }, 
-
-
-
-
-
 
     isVerified:{
         type:Boolean,

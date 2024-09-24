@@ -6,10 +6,21 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]/options';
 import { NextResponse } from 'next/server';
 
+
 export async function GET() {
   await dbConnect();
   const session = await getServerSession(authOptions);
   const _user: User = session?.user;
+
+
+
+
+
+
+
+
+
+
 
   if (!session || !_user) {
     return NextResponse.json(
@@ -17,7 +28,6 @@ export async function GET() {
       { status: 401 }
     );
   }
-
   if (!_user._id) {
     return NextResponse.json(
       { success: false, message: 'User ID is missing' },
@@ -30,12 +40,28 @@ export async function GET() {
   try {
     const user = await UserModel.aggregate([
       { $match: { _id: userId } },
-      { $unwind: '$messages' },
-      { $sort: { 'messages.createdAt': -1 } },
-      { $group: { _id: '$_id', messages: { $push: '$messages' } } },
+      {
+        $project: {
+          _id: 1,
+          messages: {
+            $ifNull: ['$messages', []],
+          },
+        },
+      },
+      {
+        $addFields: {
+          messages: {
+            $sortArray: {
+              input: '$messages',
+              sortBy: { createdAt: -1 },
+            },
+          },
+        },
+      },
     ]).exec();
+    
 
-    if (!user || user.length === 0) {
+    if (!user || user.length == 0) {
       return NextResponse.json(
         { message: 'User not found', success: false },
         { status: 404 }
@@ -54,3 +80,4 @@ export async function GET() {
     );
   }
 }
+
