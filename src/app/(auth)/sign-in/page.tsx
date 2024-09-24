@@ -1,4 +1,6 @@
 'use client';
+// import { useEffect } from 'react';
+// import { useSession } from 'next-auth/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -53,10 +55,18 @@ export default function SignInForm() {
         });
       }
     } 
-
     if (result?.url) {
-      router.push('/dashboard');
+      router.replace('/dashboard');
     }
+
+ 
+
+
+
+
+
+
+
   };
 
   return (
@@ -107,3 +117,5 @@ export default function SignInForm() {
     </div>
   );
 }
+
+
