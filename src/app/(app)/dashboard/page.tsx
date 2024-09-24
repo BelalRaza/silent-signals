@@ -223,7 +223,7 @@ import { Message } from '@/model/User';
 import { ApiResponse } from '@/types/ApiResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
-import { CloudFog, Loader2, RefreshCcw } from 'lucide-react';
+import { Loader2, RefreshCcw } from 'lucide-react';
 import { User } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import React, { useCallback, useEffect, useState } from 'react';
