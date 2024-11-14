@@ -2,7 +2,6 @@
 
 import React from 'react';
 import axios, { AxiosError } from 'axios';
-
 import { X } from 'lucide-react';
 import { Message } from '@/model/User';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,7 +24,6 @@ type MessageCardProps = {
   message: Message;
   onMessageDelete: (messageId: string) => void;
 };
-
 export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   const { toast } = useToast();
 
