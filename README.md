@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Silent-signals
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://vercel.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-First, run the development server:
+> A modern, scalable, production-ready full-stack web application built with Next.js App Router and TypeScript.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📌 Overview
 
-To learn more about Next.js, take a look at the following resources:
+This project is built using the latest **Next.js App Router architecture**, following modern full-stack best practices.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+It is designed to be:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- ⚡ Fast
+- 🔒 Secure
+- 📈 Scalable
+- 🧩 Maintainable
+- 🚀 Deployment-ready
 
-## Deploy on Vercel
+Perfect for:
+- Startup MVP
+- SaaS application
+- Portfolio project
+- Production deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|----------|
+| Next.js (App Router) | Full-stack React framework |
+| TypeScript | Type safety & maintainability |
+| React Server Components | Optimized rendering |
+| next/font | Automatic font optimization |
+| Vercel | Hosting & CI/CD |
+
+(Add Tailwind / Prisma / MongoDB / PostgreSQL / Stripe / etc. if used.)
+
+---
+
+## ⚡ Features
+
+- ✅ App Router architecture
+- ✅ Server & Client Components
+- ✅ File-based routing
+- ✅ SEO-ready structure
+- ✅ Optimized font loading
+- ✅ Automatic code splitting
+- ✅ Fast refresh in development
+- ✅ Production build optimization
+- ✅ Environment variable support
+- ✅ Vercel deployment ready
+
+---
+
+## 🧠 Architecture
