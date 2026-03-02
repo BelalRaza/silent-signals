@@ -11,27 +11,37 @@ function Navbar() {
   const user: User = session?.user;
 
   return (
-    <nav className="p-4 md:p-6 shadow-md bg-gray-900 text-white">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <a href="#" className="text-xl font-bold mb-4 md:mb-0">
-          Silent Signal
-        </a>
-        {session ? (
-          <>
-            <span className="mr-4">
-              Welcome, {user.username || user.email}
-            </span>
-            <Button onClick={() => signOut()} className="w-full md:w-auto bg-slate-100 text-black" variant="outline">
-              Logout
-            </Button>
-          </>
-        ) : (
-          <Link href="/sign-in">
-            <Button className="w-full md:w-auto bg-slate-100 text-black" variant="outline">
-              Login
-            </Button>
-          </Link>
-        )}
+    <nav className="border-b border-border/50 backdrop-blur-sm bg-card/80 sticky top-0 z-50">
+      <div className="container mx-auto px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+            <span className="text-primary-foreground font-bold text-sm">SS</span>
+          </div>
+          <span className="text-lg font-semibold text-foreground">Silent Signal</span>
+        </Link>
+
+        <div className="flex items-center gap-4">
+          {session ? (
+            <>
+              <span className="text-sm text-muted-foreground hidden sm:inline">
+                Welcome, <span className="font-medium text-foreground">{user?.username || user?.email}</span>
+              </span>
+              <Button 
+                onClick={() => signOut()} 
+                variant="outline"
+                className="w-full md:w-auto"
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Link href="/sign-in">
+              <Button variant="default" className="w-full md:w-auto">
+                Sign In
+              </Button>
+            </Link>
+          )}
+        </div>
       </div>
     </nav>
   );
