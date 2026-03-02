@@ -1,65 +1,24 @@
-# 🚀 Silent-signals
+# 🚀 Next.js Application
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://vercel.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
-> A modern, scalable, production-ready full-stack web application built with Next.js App Router and TypeScript.
+This is a **Next.js** project bootstrapped with `create-next-app`.  
+It uses the modern **App Router** architecture and is ready for development and production deployment.
 
 ---
 
+## 📦 Tech Stack
 
-
----
-
-## 📌 Overview
-
-This project is built using the latest **Next.js App Router architecture**, following modern full-stack best practices.
-
-It is designed to be:
-
-- ⚡ Fast
-- 🔒 Secure
-- 📈 Scalable
-- 🧩 Maintainable
-- 🚀 Deployment-ready
-
-Perfect for:
-- Startup MVP
-- SaaS application
-- Portfolio project
-- Production deployment
+- **Next.js** – React Framework for Production
+- **React** – UI Library
+- **TypeScript** – Type Safety
+- **next/font** – Optimized font loading
+- **Geist Font** – Modern font family by Vercel
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Getting Started
 
-| Technology | Purpose |
-|------------|----------|
-| Next.js (App Router) | Full-stack React framework |
-| TypeScript | Type safety & maintainability |
-| React Server Components | Optimized rendering |
-| next/font | Automatic font optimization |
-| Vercel | Hosting & CI/CD |
+### 1️⃣ Install Dependencies
 
-(Add Tailwind / Prisma / MongoDB / PostgreSQL / Stripe / etc. if used.)
-
----
-
-## ⚡ Features
-
-- ✅ App Router architecture
-- ✅ Server & Client Components
-- ✅ File-based routing
-- ✅ SEO-ready structure
-- ✅ Optimized font loading
-- ✅ Automatic code splitting
-- ✅ Fast refresh in development
-- ✅ Production build optimization
-- ✅ Environment variable support
-- ✅ Vercel deployment ready
-
----
-
-## 🧠 Architecture
+Using npm:
+```bash
+npm install
