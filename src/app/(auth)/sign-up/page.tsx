@@ -150,7 +150,7 @@ export default function SignUpForm() {
                 <FormItem>
                   <FormLabel className='text-black'>Email</FormLabel>
                   <Input className='text-black' {...field} name="email" />
-                  <p className='text-muted text-gray-400 text-sm'>We will send you a verification code</p>
+                  <p className='text-black text-sm font-medium'>We will send you a verification code</p>
                   <FormMessage />
                 </FormItem>
               )}
@@ -182,7 +182,7 @@ export default function SignUpForm() {
         <div className="text-center mt-4 text-black">
           <p>
             Already a member?{' '}
-            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+            <Link href="/sign-in" className="text-black font-bold hover:underline">
               Sign in
             </Link>
           </p>

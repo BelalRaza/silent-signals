@@ -99,7 +99,7 @@ export default function SignInForm() {
         <div className="text-center mt-4 text-black">
           <p>
             Not a member yet?{' '}
-            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+            <Link href="/sign-up" className="text-black font-bold hover:underline">
               Sign up
             </Link>
           </p>

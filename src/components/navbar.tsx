@@ -23,7 +23,7 @@ function Navbar() {
         <div className="flex items-center gap-4">
           {session ? (
             <>
-              <span className="text-sm text-muted-foreground hidden sm:inline">
+              <span className="text-sm text-foreground hidden sm:inline">
                 Welcome, <span className="font-medium text-foreground">{user?.username || user?.email}</span>
               </span>
               <Button 
