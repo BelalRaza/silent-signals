@@ -58,7 +58,3 @@ A newly chosen development database can use Mongoose's existing schema; it does 
 Database connection success and email delivery success are separate checkpoints.
 
 
-
-
-pass:uxjn lkbi crqw kpfw
-project anme : silent_signals_2.0
