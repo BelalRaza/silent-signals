@@ -1,44 +1,49 @@
-
 import nodemailer from 'nodemailer';
 import { ApiResponse } from '@/types/ApiResponse';
 
-// Create a transporter with your email service credentials
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // You can change this to another service (e.g., Outlook, Yahoo, etc.)
-  auth: {
-    user: process.env.GMAIL_USER, // Your email address
-    pass: process.env.GMAIL_PASS, // Your email password or app-specific password
-  },
-});
+export function isVerificationEmailConfigured(): boolean {
+  return Boolean(process.env.GMAIL_USER?.trim() && process.env.GMAIL_PASS?.trim());
+}
 
-// Function to send verification email
 export async function sendVerificationEmail(
   email: string,
   username: string,
   verifyCode: string
 ): Promise<ApiResponse> {
+  if (!isVerificationEmailConfigured()) {
+    return { success: false, message: 'Verification email is temporarily unavailable. Please try again later.' };
+  }
+
+  const sender = process.env.GMAIL_USER!.trim();
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: sender, pass: process.env.GMAIL_PASS!.replace(/\s/g, '') },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+  });
+
   try {
-    // Define email options
-    const mailOptions = {
-      from: '"Acme Support" <no-reply@acme.com>', // Sender address
-      to: email, // Receiver's email
-      subject: 'Email Verification Code',
-      html: `
-        <p>Hello ${username},</p>
-        <p>Thank you for registering. Your verification code is:</p>
+    await transporter.sendMail({
+      from: { name: 'Silent Signal', address: sender },
+      to: email,
+      subject: 'Verify your Silent Signal account',
+      text: `Hello ${username},\n\nYour Silent Signal verification code is ${verifyCode}.\nThis code expires in one hour.`,
+      // Usernames have already passed the server's alphanumeric validation.
+      html: `<p>Hello ${username},</p>
+        <p>Your Silent Signal verification code is:</p>
         <h3>${verifyCode}</h3>
-        <p>This code will expire in 1 hour. If you did not request this, please ignore this email.</p>
-      `,
-    };
-
-    // Send the email
-    const info = await transporter.sendMail(mailOptions);
-
-    // Log the response and return success
-    console.log('Message sent: %s', info.messageId);
-    return { success: true, message: `Verification email sent successfully: ${info.messageId}` };
+        <p>This code expires in one hour. If you did not request it, you can ignore this email.</p>`,
+    });
+    return { success: true, message: 'Verification email sent successfully.' };
   } catch (error) {
-    console.error('Error sending verification email:', error);
-    return { success: false, message: 'Failed to send verification email' };
+    console.error('Verification email delivery failed:', {
+      name: error instanceof Error ? error.name : 'UnknownError',
+      code: typeof error === 'object' && error !== null && 'code' in error ? error.code : undefined,
+    });
+    return {
+      success: false,
+      message: 'We could not send your verification email. Please try signing up again.',
+    };
   }
 }
